@@ -23,7 +23,7 @@ type Config struct {
 	Policy                                                         Policy
 	MaxActive, KVBudget, PrefillBudget, SubmitBuffer, OutputBuffer int
 	StallTimeout, PollInterval                                     time.Duration
-	TraceLimit                                                     int // zero disables tracing; bounded so a long-running server stays small
+	TraceLimit                                                     int
 }
 
 func DefaultConfig() Config {
