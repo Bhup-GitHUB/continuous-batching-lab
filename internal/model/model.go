@@ -22,7 +22,12 @@ type Costs struct {
 }
 
 func DefaultCosts() Costs {
-	return Costs{2 * time.Millisecond, 100 * time.Microsecond, 20 * time.Millisecond, 300 * time.Microsecond}
+	return Costs{
+		PrefillBase:     2 * time.Millisecond,
+		PrefillPerToken: 100 * time.Microsecond,
+		StepBase:        20 * time.Millisecond,
+		StepPerActive:   300 * time.Microsecond,
+	}
 }
 
 type Model interface {

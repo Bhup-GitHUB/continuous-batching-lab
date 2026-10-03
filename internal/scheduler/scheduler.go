@@ -27,7 +27,16 @@ type Config struct {
 }
 
 func DefaultConfig() Config {
-	return Config{Continuous, 32, 20000, 512, 1024, 16, 5 * time.Second, time.Millisecond, 0}
+	return Config{
+		Policy:        Continuous,
+		MaxActive:     32,
+		KVBudget:      20000,
+		PrefillBudget: 512,
+		SubmitBuffer:  1024,
+		OutputBuffer:  16,
+		StallTimeout:  5 * time.Second,
+		PollInterval:  time.Millisecond,
+	}
 }
 func (c Config) Validate() error {
 	if c.Policy != Continuous && c.Policy != Fixed {

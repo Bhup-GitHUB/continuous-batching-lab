@@ -58,11 +58,12 @@ func main() {
 	errs := make(chan error, 1)
 	go func() { errs <- server.ListenAndServe() }()
 	log.Printf("policy=%s max_active=%d kv_budget=%d listening on %s", c.Policy, c.MaxActive, c.KVBudget, server.Addr)
+	var serveErr error
 	select {
 	case <-ctx.Done():
 	case err = <-errs:
 		if !errors.Is(err, http.ErrServerClosed) {
-			log.Print(err)
+			serveErr = err
 		}
 		stop()
 	}
@@ -72,4 +73,7 @@ func main() {
 		_ = server.Close()
 	}
 	<-finished
+	if serveErr != nil {
+		log.Fatal(serveErr)
+	}
 }

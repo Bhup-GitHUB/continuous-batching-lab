@@ -2,6 +2,7 @@ package scheduler
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"testing"
 	"time"
@@ -89,7 +90,7 @@ func TestTokensInOrderAndFinalPendingToken(t *testing.T) {
 	}
 	for want := 1; want <= 5; want++ {
 		got := <-r.Out
-		if got.Index != want || got.Text != "ordered:"+string(rune('0'+want)) {
+		if got.Index != want || got.Text != fmt.Sprintf("ordered:%d", want) {
 			t.Fatalf("got %v, want index %d", got, want)
 		}
 		if want < 5 {
